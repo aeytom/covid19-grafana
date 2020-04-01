@@ -8,6 +8,10 @@ Da der Inital-Import bei mir schon erfolgt ist, werden nur die Daten der letzten
 
 Datengrundlage: https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0
 
+Der fertige Prototyp: https://graf.tay-tec.de/d/ryhJ18rWk/corona-rki?orgId=3 (Da privat gehosted, wird der Zugriff bei zu viel Traffic gesperrt)
+
+
+
 ## Bau
 
 ```
@@ -18,4 +22,5 @@ helm3 upgrade --install --recreate-pods -n corona coronarki coronarki/
 
 ## Grafana Dashboard
 
-[Corona RKI-1585720948749.json](./Corona RKI-1585720948749.json)
+* Anlegen einer influxdb-Datasource
+* Import von [Corona RKI-1585720948749.json](./Corona RKI-1585720948749.json)
