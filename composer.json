@@ -1,0 +1,5 @@
+{
+    "require": {
+        "influxdb/influxdb-php": "^1.15"
+    }
+}
