@@ -39,12 +39,17 @@
       "id": "table",
       "name": "Table",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
     }
   ],
   "annotations": {
     "list": [
       {
-        "$$hashKey": "object:22",
         "builtIn": 1,
         "datasource": "-- Grafana --",
         "enable": true,
@@ -59,12 +64,29 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1585720934180,
+  "iteration": 1585757556222,
   "links": [],
   "panels": [
     {
+      "content": "\nDaten: [NPGEO Corona- RKI COVID19](https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0)\nCode: [aeytom/corvid19-grafana](https://github.com/aeytom/corvid19-grafana)\n",
+      "datasource": "${DS_CORONA}",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "mode": "markdown",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Corvid-19 Zeitreihe Deutschland",
+      "transparent": true,
+      "type": "text"
+    },
+    {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_CORONA}",
@@ -74,7 +96,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 2
       },
       "hiddenSeries": false,
       "id": 2,
@@ -90,7 +112,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
@@ -218,7 +240,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_CORONA}",
@@ -228,7 +250,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 2
       },
       "hiddenSeries": false,
       "id": 12,
@@ -244,7 +266,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
@@ -378,7 +400,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 12
       },
       "id": 5,
       "pageSize": null,
@@ -487,7 +509,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 12
       },
       "id": 6,
       "pageSize": null,
@@ -594,7 +616,7 @@
         "h": 5,
         "w": 6,
         "x": 0,
-        "y": 18
+        "y": 20
       },
       "id": 8,
       "interval": "",
@@ -694,7 +716,7 @@
         "h": 5,
         "w": 6,
         "x": 6,
-        "y": 18
+        "y": 20
       },
       "id": 10,
       "interval": "",
@@ -794,7 +816,7 @@
         "h": 5,
         "w": 6,
         "x": 12,
-        "y": 18
+        "y": 20
       },
       "id": 9,
       "interval": "",
@@ -894,7 +916,7 @@
         "h": 5,
         "w": 6,
         "x": 18,
-        "y": 18
+        "y": 20
       },
       "id": 11,
       "interval": "",
@@ -1155,5 +1177,5 @@
   "variables": {
     "list": []
   },
-  "version": 2
+  "version": 5
 }
