@@ -1,6 +1,6 @@
-# Robert-Koch-Institut Corvid-19 Timeline
+# Robert-Koch-Institut Corid-19 Timeline
 
-Prototyp eines Grafana Dashboards zur Anzeige eines Dashboards über die Timeline der RKI Zahlen zur Verbreitung von Corvid-19 in Deutschland. 
+Prototyp eines Grafana Dashboards zur Anzeige eines Dashboards über die Timeline der RKI Zahlen zur Verbreitung von Covid-19 in Deutschland. 
 
 Derzeit gibt es keine Konfiguration, sondern nur die fest eingestellten Parameter im Import-Script. Der Betrieb erfolgt derzeit in einer Microk8s Umgebung mit der schon vorhandenen Influxdb und Grafana Instanz.
 
