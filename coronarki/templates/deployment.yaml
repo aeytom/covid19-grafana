@@ -4,8 +4,6 @@ metadata:
   name: {{ include "coronarki.fullname" . }}
   labels:
     {{- include "coronarki.labels" . | nindent 4 }}
-  annotations:
-    app.ts: {{ date "20060102150405" .Release.Time | quote }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -15,6 +13,8 @@ spec:
     metadata:
       labels:
         {{- include "coronarki.selectorLabels" . | nindent 8 }}
+      annotations:
+        app.ts: {{ date "20060102150405" .Release.Time | quote }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -23,11 +23,22 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: app
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:latest"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: INFLUXDB_HOST
+            value: {{ ternary (printf "%s-influxdb" .Release.Namespace) .Values.influxdb.service.name .Values.influxdb.enabled | quote}}
+          - name: INFLUXDB_PORT
+            value: {{ .Values.influxdb.service.port | quote}}
+          - name: INFLUXDB_DATABASE
+            value: {{ .Values.influxdb.database | quote }}
+          - name: INFLUXDB_USER
+            value: {{ .Values.influxdb.user.name | quote }}
+          - name: INFLUXDB_PASSWORD
+            value: {{ .Values.influxdb.user.pwd | quote }}
           command:
           - "/usr/local/bin/php"
           - "/app/import.php"

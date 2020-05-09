@@ -1,55 +1,8 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_CORONA",
-      "label": "Corona",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "6.7.1"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
+        "$$hashKey": "object:22",
         "builtIn": 1,
         "datasource": "-- Grafana --",
         "enable": true,
@@ -63,13 +16,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1585757556222,
+  "id": 9,
+  "iteration": 1589020044763,
   "links": [],
   "panels": [
     {
-      "content": "\nDaten: [NPGEO Corona- RKI COVID19](https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0)\nCode: [aeytom/corvid19-grafana](https://github.com/aeytom/corvid19-grafana)\n",
-      "datasource": "${DS_CORONA}",
+      "content": "\nDaten: [NPGEO Corona- RKI COVID19](https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0)\nCode: [aeytom/covid19-grafana](https://github.com/aeytom/covid19-grafana)\n",
+      "datasource": null,
       "gridPos": {
         "h": 2,
         "w": 24,
@@ -80,7 +33,7 @@
       "mode": "markdown",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Corvid-19 Zeitreihe Deutschland",
+      "title": "Covid-19 Zeitreihe Deutschland",
       "transparent": true,
       "type": "text"
     },
@@ -89,7 +42,8 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
+      "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -104,12 +58,12 @@
       "legend": {
         "alignAsTable": false,
         "avg": false,
-        "current": true,
+        "current": false,
         "max": false,
         "min": false,
         "rightSide": true,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": false,
@@ -122,7 +76,16 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1518",
+          "alias": "/roh/",
+          "bars": false,
+          "fill": 0,
+          "lines": true,
+          "stack": false
+        }
+      ],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
@@ -155,6 +118,75 @@
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/ AND \"Landkreis\" =~ /^$landkreis$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
           "rawQuery": false,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "5"
+                ],
+                "type": "moving_average"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Geschlecht",
+              "operator": "=~",
+              "value": "/^$geschlecht$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Altersgruppe",
+              "operator": "=~",
+              "value": "/^$altersgruppe$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Landkreis",
+              "operator": "=~",
+              "value": "/^$landkreis$/"
+            }
+          ]
+        },
+        {
+          "alias": "Gesamt roh",
+          "groupBy": [
+            {
+              "params": [
+                "$myinterval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "rki",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/ AND \"Landkreis\" =~ /^$landkreis$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
+          "rawQuery": false,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -201,7 +233,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Tägliche Fälle",
+      "title": "Tägliche Fälle (Durchschitt 5T)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -217,7 +249,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:484",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -225,6 +258,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:485",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -243,7 +277,8 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
+      "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -258,12 +293,12 @@
       "legend": {
         "alignAsTable": false,
         "avg": false,
-        "current": true,
+        "current": false,
         "max": false,
         "min": false,
         "rightSide": true,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": false,
@@ -276,7 +311,16 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:2201",
+          "alias": "/roh/",
+          "bars": false,
+          "fill": 0,
+          "lines": true,
+          "stack": false
+        }
+      ],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
@@ -309,6 +353,75 @@
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
           "rawQuery": false,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "AnzahlTodesfall"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "5"
+                ],
+                "type": "moving_average"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Geschlecht",
+              "operator": "=~",
+              "value": "/^$geschlecht$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Altersgruppe",
+              "operator": "=~",
+              "value": "/^$altersgruppe$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Landkreis",
+              "operator": "=~",
+              "value": "/^$landkreis$/"
+            }
+          ]
+        },
+        {
+          "alias": "Gesamt roh",
+          "groupBy": [
+            {
+              "params": [
+                "$myinterval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "rki",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
+          "rawQuery": false,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -355,10 +468,10 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "TäglicheTodesfälle",
+      "title": "TäglicheTodesfälle (Durchschnitt 5T)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -371,7 +484,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:631",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -379,6 +493,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:632",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -394,7 +509,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
@@ -503,7 +618,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
@@ -611,7 +726,7 @@
       "type": "table"
     },
     {
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "gridPos": {
         "h": 5,
         "w": 6,
@@ -653,7 +768,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "6.7.2",
       "targets": [
         {
           "alias": "$tag_Altersgruppe",
@@ -711,7 +826,7 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "gridPos": {
         "h": 5,
         "w": 6,
@@ -753,7 +868,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "6.7.2",
       "targets": [
         {
           "alias": "$tag_Geschlecht",
@@ -811,7 +926,7 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "gridPos": {
         "h": 5,
         "w": 6,
@@ -853,7 +968,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "6.7.2",
       "targets": [
         {
           "alias": "$tag_Altersgruppe",
@@ -911,7 +1026,7 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${DS_CORONA}",
+      "datasource": "Corona",
       "gridPos": {
         "h": 5,
         "w": 6,
@@ -931,7 +1046,7 @@
               "mode": "thresholds"
             },
             "mappings": [],
-            "max": 500,
+            "max": 2000,
             "min": 0,
             "thresholds": {
               "mode": "absolute",
@@ -953,7 +1068,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.1",
+      "pluginVersion": "6.7.2",
       "targets": [
         {
           "alias": "$tag_Geschlecht",
@@ -1009,8 +1124,161 @@
       "timeShift": null,
       "title": "Todesfälle je Geschlecht",
       "type": "bargauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Corona",
+      "decimals": 0,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "Fälle",
+          "groupBy": [
+            {
+              "params": [
+                "7d"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "rki",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "/37.69"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Geschlecht",
+              "operator": "=~",
+              "value": "/^$geschlecht$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Altersgruppe",
+              "operator": "=~",
+              "value": "/^$altersgruppe$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Bundesland",
+              "operator": "=",
+              "value": "Berlin"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "90d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Berlin Fälle / 100000",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:484",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:485",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
+  "refresh": "2h",
   "schemaVersion": 22,
   "style": "dark",
   "tags": [],
@@ -1067,8 +1335,12 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_CORONA}",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Corona",
         "definition": "show tag values with key = Bundesland",
         "hide": 0,
         "includeAll": true,
@@ -1090,8 +1362,12 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_CORONA}",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Corona",
         "definition": "show tag values with key = Landkreis",
         "hide": 0,
         "includeAll": true,
@@ -1113,8 +1389,12 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_CORONA}",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Corona",
         "definition": "show tag values with key = Altersgruppe",
         "hide": 0,
         "includeAll": true,
@@ -1136,8 +1416,12 @@
       },
       {
         "allValue": null,
-        "current": {},
-        "datasource": "${DS_CORONA}",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Corona",
         "definition": "show tag values with key = Geschlecht",
         "hide": 0,
         "includeAll": true,
@@ -1177,5 +1461,5 @@
   "variables": {
     "list": []
   },
-  "version": 5
+  "version": 20
 }

@@ -12,6 +12,9 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"redhat.vscode-yaml",
+		"davidanson.vscode-markdownlint",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
 		"bmewburn.vscode-intelephense-client",
 		"felixfbecker.php-debug",
 		"felixfbecker.php-intellisense"

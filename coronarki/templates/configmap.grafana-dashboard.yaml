@@ -1,0 +1,10 @@
+{{- if .Values.grafana.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "coronarki.fullname" . }}-grafana-dashboard
+  labels:
+    {{- include "coronarki.labels" . | nindent 4 }}
+data:
+{{ (.Files.Glob "grafana/RKI-1585720948749.json").AsConfig | indent 2 }}
+{{- end -}}

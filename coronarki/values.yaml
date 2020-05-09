@@ -64,3 +64,34 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+tags:
+
+influxdb:
+  enabled: true
+  service:
+    name: influxdb
+    port: 8086
+  database: corona
+  adminUser:
+    pwd: 4e3224ee-a79a-474f-85be-1bf0a289b312
+  user:
+    name: corona
+    pwd: bbe984e0-ebd7-473e-a6b5-ab8275799a65
+
+grafana:
+  enabled: true
+  admin:
+    user: admin
+    password: 4d9ldvQfPb
+  ingress:
+    enabled: true
+    hosts:
+    - name: corona.tay-tec.de
+  dashboardsProvider:
+    enabled: true
+  datasources:
+    secretName: rki-coronarki-grafana-datasource
+  dashboardsConfigMaps:
+    - configMapName: rki-coronarki-grafana-dashboard
+      fileName: "RKI-1585720948749.json"
