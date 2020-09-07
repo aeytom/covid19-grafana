@@ -30,9 +30,29 @@ $residents_bl = [
     'Thüringen' => 2143145,
 ];
 
+$blDiviMap = [
+    "BADEN_WUERTTEMBERG" => 'Baden-Württemberg',
+    "BAYERN" => 'Bayern',
+    "BERLIN" => 'Berlin',
+    "BRANDENBURG" => 'Brandenburg',
+    "BREMEN" => 'Bremen',
+    "HAMBURG" => 'Hamburg',
+    "HESSEN" => 'Hessen',
+    "MECKLENBURG_VORPOMMERN" => 'Mecklenburg-Vorpommern',
+    "NIEDERSACHSEN" => 'Niedersachsen',
+    "NORDRHEIN_WESTFALEN" => 'Nordrhein-Westfalen',
+    "RHEINLAND_PFALZ" => 'Rheinland-Pfalz',
+    "SAARLAND" => 'Saarland',
+    "SACHSEN_ANHALT" => 'Sachsen-Anhalt',
+    "SACHSEN" => 'Sachsen',
+    "SCHLESWIG_HOLSTEIN" => 'Schleswig-Holstein',
+    "THUERINGEN" => 'Thüringen',
+];
+
+
 // @see https://de.wikipedia.org/wiki/Liste_der_Landkreise_in_Deutschland
 $residents_lk = [
-    'LK Aachen, Städteregion[FN 1]' => 555465,
+    'Aachen, Städteregion[FN 1]' => 555465,
     'Ahrweiler' => 129727,
     'Aichach-Friedberg' => 133596,
     'Alb-Donau-Kreis' => 196047,
@@ -58,6 +78,18 @@ $residents_lk = [
     'Bayreuth' => 103656,
     'Berchtesgadener Land' => 105722,
     'Bergstraße' => 269694,
+    'Berlin Charlottenburg-Wilmersdorf' => 343592,
+    'Berlin Friedrichshain-Kreuzberg' => 290386,
+    'Berlin Lichtenberg' => 294201,
+    'Berlin Marzahn-Hellersdorf' => 269967,
+    'Berlin Mitte' => 385748,
+    'Berlin Neukölln' => 329917,
+    'Berlin Pankow' => 409335,
+    'Berlin Reinickendorf' => 266408,
+    'Berlin Spandau' => 245197,
+    'Berlin Steglitz-Zehlendorf' => 310071,
+    'Berlin Tempelhof-Schöneberg' => 350984,
+    'Berlin Treptow-Köpenick' => 273689,
     'Bernkastel-Wittlich' => 112262,
     'Biberach' => 199742,
     'Birkenfeld' => 80720,
@@ -178,8 +210,8 @@ $residents_lk = [
     'Mainz-Bingen' => 210889,
     'Mansfeld-Südharz' => 136249,
     'Marburg-Biedenkopf' => 246648,
-    'Märkischer Kreis' => 412120,
     'Märkisch-Oderland' => 194328,
+    'Märkischer Kreis' => 412120,
     'Mayen-Koblenz' => 214259,
     'Mecklenburgische Seenplatte' => 259130,
     'Meißen' => 242165,
@@ -239,14 +271,14 @@ $residents_lk = [
     'Rendsburg-Eckernförde' => 272775,
     'Reutlingen' => 286748,
     'Rhein-Erft-Kreis' => 470089,
-    'Rheingau-Taunus-Kreis' => 187157,
     'Rhein-Hunsrück-Kreis' => 102937,
-    'Rheinisch-Bergischer Kreis' => 283455,
     'Rhein-Kreis Neuss' => 451007,
     'Rhein-Lahn-Kreis' => 122308,
     'Rhein-Neckar-Kreis' => 547625,
     'Rhein-Pfalz-Kreis' => 154201,
     'Rhein-Sieg-Kreis' => 599780,
+    'Rheingau-Taunus-Kreis' => 187157,
+    'Rheinisch-Bergischer Kreis' => 283455,
     'Rhön-Grabfeld' => 79690,
     'Rosenheim' => 260983,
     'Rostock' => 215113,
@@ -255,8 +287,8 @@ $residents_lk = [
     'Rottal-Inn' => 120659,
     'Rottweil' => 139455,
     'Saale-Holzland-Kreis' => 83051,
-    'Saalekreis' => 184582,
     'Saale-Orla-Kreis' => 80868,
+    'Saalekreis' => 184582,
     'Saalfeld-Rudolstadt' => 104142,
     'Saarbrücken, Regionalverband[FN 1]' => 329708,
     'Saarlouis' => 195201,
@@ -266,10 +298,10 @@ $residents_lk = [
     'Schaumburg' => 157781,
     'Schleswig-Flensburg' => 200025,
     'Schmalkalden-Meiningen' => 125646,
+    'Schwäbisch Hall' => 195861,
     'Schwalm-Eder-Kreis' => 180222,
     'Schwandorf' => 147189,
     'Schwarzwald-Baar-Kreis' => 212381,
-    'Schwäbisch Hall' => 195861,
     'Schweinfurt' => 115106,
     'Segeberg' => 276032,
     'Siegen-Wittgenstein' => 278210,
@@ -375,7 +407,10 @@ function import(Database $database, bool $fullimport)
         echo "… URL: ${url}\n";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'User-Agent: https://graf.tay-tec.de/?orgId=3',
+            'Accept: application/json'
+        ]);
 
         $resp = curl_exec($ch);
         if (200 != curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
@@ -439,12 +474,93 @@ function import(Database $database, bool $fullimport)
 }
 
 
+function import_divi(Database $database)
+{
+    $blDiviMap = $GLOBALS['blDiviMap'];
+    $residents_bl = $GLOBALS['residents_bl'];
+
+    $url = 'https://www.intensivregister.de/api/public/reporting/laendertabelle';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'User-Agent: https://graf.tay-tec.de/?orgId=3',
+        'Accept: application/json'
+    ]);
+
+    $resp = curl_exec($ch);
+    if (200 != curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+        die('Can not get data:' . curl_error($ch));
+    }
+
+    $jdata = json_decode($resp, true);
+    if (!is_array($jdata)) {
+        die('Broken response:' . json_last_error());
+    }
+
+    $points = [];
+    foreach ($jdata['data'] as $attr) {
+        // bundesland	"SCHLESWIG_HOLSTEIN"
+        // meldebereichAnz	39
+        // faelleCovidAktuell	2
+        // faelleCovidAktuellBeatmet	1
+        // faelleCovidAktuellBeatmetToCovidAktuellPercent	50
+        // intensivBettenBelegt	571
+        // intensivBettenFrei	471
+        // intensivBettenGesamt	1042
+        // covidToIntensivBettenPercent	0.19
+        // creationTimestamp	"2020-09-07T05:00:05Z"
+
+        if (!array_key_exists($attr['bundesland'], $blDiviMap)) {
+            continue;
+        }
+        $blName = $blDiviMap[$attr['bundesland']];
+
+        printf(
+            "%s - %20s - %6d,%6d,%6d\n",
+            $attr['creationTimestamp'],
+            $blName,
+            $attr['intensivBettenBelegt'],
+            $attr['intensivBettenFrei'],
+            $attr['intensivBettenGesamt']
+        );
+
+        $rbl = array_key_exists($blName, $residents_bl) ? $residents_bl[$blName] / 100000 : null;
+
+        $points[] = new Point(
+            'divi',
+            (int)$attr['faelleCovidAktuell'],
+            [
+                'Bundesland' => $blName,
+            ],
+            [
+                'meldebereichAnz' => (int)$attr['meldebereichAnz'],
+                'faelleCovidAktuell' => (int)$attr['faelleCovidAktuell'],
+                'faelleCovidAktuellBeatmet' => (int)$attr['faelleCovidAktuellBeatmet'],
+                'faelleCovidAktuellBeatmetToCovidAktuellPercent' => (int)$attr['faelleCovidAktuellBeatmetToCovidAktuellPercent'],
+                'intensivBettenBelegt' => (int)$attr['intensivBettenBelegt'],
+                'intensivBettenFrei' => (int)$attr['intensivBettenFrei'],
+                'intensivBettenGesamt' => (int)$attr['intensivBettenGesamt'],
+                'covidToIntensivBettenPercent' => (int)$attr['covidToIntensivBettenPercent'],
+            ],
+            strtotime($attr['creationTimestamp'])
+        );
+    }
+    // we are writing unix timestamps, which have a second precision
+    if (!$database->writePoints($points, Database::PRECISION_SECONDS)) {
+        die('Error writing to influxdb!');
+    }
+}
+
 //import_residents($database, 'Bundesland', $residents_bl);
 //import_residents($database, 'Landkreis', $residents_lk);
+import_divi($database);
 import($database, true);
 if ($argv[1] == 'daemon') {
     while (true) {
-        sleep(7200);
+        sleep(3600 * 6);
         import($database, false);
+        import_divi($database);
     }
 }
