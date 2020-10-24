@@ -47,12 +47,14 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --chown=${USERNAME} . /app
 WORKDIR /app
-RUN mkdir -p data \
-    && chown -R ${USERNAME} data \
-    && ./composer update --no-progress
+COPY --chown=${USERNAME} composer* /app/
+RUN ./composer update --no-progress
 
+COPY --chown=${USERNAME} . /app/
+RUN mkdir -p data \
+    && chown -R ${USERNAME} data
+    
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
 

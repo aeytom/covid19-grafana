@@ -15,9 +15,9 @@ Der fertige Prototyp: https://graf.tay-tec.de/d/ryhJ18rWk/corona-rki?orgId=3 (Da
 ## Bau
 
 ```
-docker build -f .devcontainer/Dockerfile -t localhost:32000/coronarki
+docker build -f .devcontainer/Dockerfile -t localhost:32000/coronarki .
 docker push localhost:32000/coronarki:latest
-helm3 upgrade --install --recreate-pods -n corona coronarki coronarki/
+helm3 upgrade --install -n corona coronarki coronarki/
 ```
 
 ## Grafana Dashboard
