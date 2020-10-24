@@ -9,13 +9,11 @@ deleteDatasources:
 datasources:
 - name: Corona
   type: influxdb
-  typeLogoUrl: public/app/plugins/datasource/influxdb/img/influxdb_logo.svg
-  access: proxy
-  url: http://{{ .Values.influxdb.service.name }}:{{ .Values.influxdb.service.port }}/
+  access: server
+  url: http://{{ .Release.Name }}-{{ .Values.influxdb.service.name }}:{{ .Values.influxdb.service.port }}/
   password: {{ .Values.influxdb.user.pwd | quote }}
   user: {{ .Values.influxdb.user.name | quote }}
   database: {{ .Values.influxdb.database | quote }}
-  basicAuth: false
   isDefault: true
   jsonData:
     httpMode: GET

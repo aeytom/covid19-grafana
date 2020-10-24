@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "coronarki.fullname" . }}-grafana-ini
+  labels:
+    {{- include "coronarki.labels" . | nindent 4 }}
+data:
+{{ ( .Files.Glob "grafana/*.ini" ).AsConfig | indent 2 }}

@@ -17,11 +17,11 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1589020044763,
+  "iteration": 1603540569492,
   "links": [],
   "panels": [
     {
-      "content": "\nDaten: [NPGEO Corona- RKI COVID19](https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0)\nCode: [aeytom/covid19-grafana](https://github.com/aeytom/covid19-grafana)\n",
+      "content": "\n<p>Daten: \n<a target=\"_blank\" href=\"https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0\">NPGEO Corona- RKI COVID19</a>,\n<a target=\"_blank\" href=\"https://www.intensivregister.de/#/index\">DIVI Intensivregister</a>\nCode: <a target=\"_blank\" href=\"https://github.com/aeytom/covid19-grafana\">aeytom/covid19-grafana</a></p>\n\n\n\n<!-- Matomo -->\n<script type=\"text/javascript\">\n  var _paq = window._paq || [];\n  /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n  // require user consent before processing data\n  _paq.push(['requireConsent']);\n  _paq.push(['rememberConsentGiven']);\n  _paq.push(['trackPageView']);\n  _paq.push(['enableLinkTracking']);\n  _paq.push(['enableHeartBeatTimer']);\n  (function() {\n    var u=\"//piwik.tay-tec.de/\";\n    _paq.push(['setTrackerUrl', u+'matomo.php']);\n    _paq.push(['setSiteId', '2']);\n    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n  })();\n</script>\n<noscript><p><img src=\"//piwik.tay-tec.de/matomo.php?idsite=2&amp;rec=1\" style=\"border:0;\" alt=\"\" /></p></noscript>\n<!-- End Matomo Code -->\n\n",
       "datasource": null,
       "gridPos": {
         "h": 2,
@@ -29,8 +29,8 @@
         "x": 0,
         "y": 0
       },
-      "id": 14,
-      "mode": "markdown",
+      "id": 20,
+      "mode": "html",
       "timeFrom": null,
       "timeShift": null,
       "title": "Covid-19 Zeitreihe Deutschland",
@@ -47,10 +47,355 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 12,
         "x": 0,
         "y": 2
+      },
+      "hiddenSeries": false,
+      "id": 17,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "maxPerRow": 4,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_Bundesland",
+          "groupBy": [
+            {
+              "params": [
+                "7d"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "Bundesland"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "rki",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "normFallBl"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Geschlecht",
+              "operator": "=~",
+              "value": "/^$geschlecht$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Altersgruppe",
+              "operator": "=~",
+              "value": "/^$altersgruppe$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Landkreis",
+              "operator": "=~",
+              "value": "/^$landkreis$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:203",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 50,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": "90d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Normalisierte Fälle Land [[bundesland]]",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:484",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:485",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Corona",
+      "decimals": 0,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "maxPerRow": 3,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_Landkreis",
+          "groupBy": [
+            {
+              "params": [
+                "7d"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "Landkreis"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "limit": "",
+          "measurement": "rki",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "normFallLk"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "Geschlecht",
+              "operator": "=~",
+              "value": "/^$geschlecht$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Altersgruppe",
+              "operator": "=~",
+              "value": "/^$altersgruppe$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Landkreis",
+              "operator": "=~",
+              "value": "/^$landkreis$/"
+            },
+            {
+              "condition": "AND",
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:203",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 50,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": "90d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Normalisierte Fälle Landkreis [[landkreis]]",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:484",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:485",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Corona",
+      "decimals": 0,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 2,
@@ -285,7 +630,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 2
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 12,
@@ -508,6 +853,390 @@
       }
     },
     {
+      "aliasColors": {
+        "Beatmet Covid": "dark-red",
+        "Belegt int.": "light-purple",
+        "Frei int.": "dark-green",
+        "Fälle Covid": "dark-yellow"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1326",
+          "alias": "/int/",
+          "fill": 2,
+          "stack": "A"
+        },
+        {
+          "$$hashKey": "object:1333",
+          "alias": "/Covid/",
+          "bars": true,
+          "lines": false,
+          "yaxis": 2,
+          "zindex": -1
+        },
+        {
+          "$$hashKey": "object:824",
+          "alias": "/Frei/",
+          "color": "#37872D"
+        },
+        {
+          "$$hashKey": "object:840",
+          "alias": "/Belegt/",
+          "color": "#E0B400"
+        },
+        {
+          "$$hashKey": "object:848",
+          "alias": "/Beatmet/",
+          "color": "#C4162A"
+        },
+        {
+          "$$hashKey": "object:856",
+          "alias": "/Fälle/",
+          "color": "#8F3BB8"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$col $tag_Bundesland",
+          "groupBy": [
+            {
+              "params": [
+                "$myinterval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "Bundesland"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "divi",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "intensivBettenBelegt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Belegt int."
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "intensivBettenFrei"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Frei int."
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "faelleCovidAktuell"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Fälle Covid"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "faelleCovidAktuellBeatmet"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Beatmet Covid"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Intensiv Betten / Fälle ($bundesland)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1004",
+          "format": "none",
+          "label": "Intensiv Betten",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1005",
+          "format": "none",
+          "label": "Covid Fälle",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 25,
+      "interval": "1d",
+      "legend": {
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1326",
+          "alias": "Fälle",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:1333",
+          "alias": "Beatmet",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_Bundesland",
+          "groupBy": [
+            {
+              "params": [
+                "$myinterval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "Bundesland"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "divi",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "$divifields"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "Bundesland",
+              "operator": "=~",
+              "value": "/^$bundesland$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "DIVI $divifields ($bundesland)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1004",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1005",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "columns": [],
       "datasource": "Corona",
       "fontSize": "100%",
@@ -515,7 +1244,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 29
       },
       "id": 5,
       "pageSize": null,
@@ -624,7 +1353,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 29
       },
       "id": 6,
       "pageSize": null,
@@ -731,7 +1460,7 @@
         "h": 5,
         "w": 6,
         "x": 0,
-        "y": 20
+        "y": 37
       },
       "id": 8,
       "interval": "",
@@ -768,7 +1497,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "alias": "$tag_Altersgruppe",
@@ -831,7 +1560,7 @@
         "h": 5,
         "w": 6,
         "x": 6,
-        "y": 20
+        "y": 37
       },
       "id": 10,
       "interval": "",
@@ -868,7 +1597,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "alias": "$tag_Geschlecht",
@@ -931,7 +1660,7 @@
         "h": 5,
         "w": 6,
         "x": 12,
-        "y": 20
+        "y": 37
       },
       "id": 9,
       "interval": "",
@@ -968,7 +1697,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "alias": "$tag_Altersgruppe",
@@ -1031,7 +1760,7 @@
         "h": 5,
         "w": 6,
         "x": 18,
-        "y": 20
+        "y": 37
       },
       "id": 11,
       "interval": "",
@@ -1068,7 +1797,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.7.2",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "alias": "$tag_Geschlecht",
@@ -1126,156 +1855,21 @@
       "type": "bargauge"
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Corona",
-      "decimals": 0,
-      "fill": 1,
-      "fillGradient": 0,
+      "content": "<iframe\n        style=\"border: 0; height: 200px; width: 100%\"\n        src=\"https://piwik.tay-tec.de/index.php?module=CoreAdminHome&action=optOut&backgroundColor=222&fontColor=ddd&fontSize=11pt&fontFamily=arial,sans-serif\"\n        ></iframe>",
+      "datasource": null,
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
-        "y": 25
+        "y": 42
       },
-      "hiddenSeries": false,
-      "id": 15,
-      "interval": "",
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "total": true,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
-      "targets": [
-        {
-          "alias": "Fälle",
-          "groupBy": [
-            {
-              "params": [
-                "7d"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "rki",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
-              },
-              {
-                "params": [
-                  "/37.69"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "Geschlecht",
-              "operator": "=~",
-              "value": "/^$geschlecht$/"
-            },
-            {
-              "condition": "AND",
-              "key": "Altersgruppe",
-              "operator": "=~",
-              "value": "/^$altersgruppe$/"
-            },
-            {
-              "condition": "AND",
-              "key": "Bundesland",
-              "operator": "=",
-              "value": "Berlin"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": "90d",
-      "timeRegions": [],
+      "id": 22,
+      "mode": "html",
+      "timeFrom": null,
       "timeShift": null,
-      "title": "Berlin Fälle / 100000",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:484",
-          "format": "none",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:485",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Matomo Opt-Out",
+      "transparent": true,
+      "type": "text"
     }
   ],
   "refresh": "2h",
@@ -1377,7 +1971,7 @@
         "name": "landkreis",
         "options": [],
         "query": "show tag values with key = Landkreis",
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 5,
@@ -1440,6 +2034,32 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "faelleCovidAktuell",
+          "value": "faelleCovidAktuell"
+        },
+        "datasource": "Corona",
+        "definition": "SHOW FIELD KEYS FROM \"divi\"",
+        "hide": 0,
+        "includeAll": false,
+        "index": -1,
+        "label": "DIVI Felder",
+        "multi": false,
+        "name": "divifields",
+        "options": [],
+        "query": "SHOW FIELD KEYS FROM \"divi\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -1461,5 +2081,5 @@
   "variables": {
     "list": []
   },
-  "version": 20
+  "version": 53
 }

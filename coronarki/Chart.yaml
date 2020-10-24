@@ -22,13 +22,13 @@ appVersion: 0.2
 
 dependencies:
   - name: influxdb
-    version: 0.4.4
+    version: ^0.6.9
     repository: https://charts.bitnami.com/bitnami
     condition: influxdb.enabled
     tags:
       - fullstack
   - name: grafana
-    version: 1.4.1
+    version: ^3.4.5
     repository: https://charts.bitnami.com/bitnami
     condition: grafana.enabled
     tags:

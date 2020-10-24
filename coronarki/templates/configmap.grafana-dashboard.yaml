@@ -1,10 +1,14 @@
 {{- if .Values.grafana.enabled -}}
+{{ $currentScope := .}}
+{{ range $path, $_ :=  .Files.Glob  "grafana/*.json" }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "coronarki.fullname" . }}-grafana-dashboard
+  name: {{ include "coronarki.fullname" $currentScope }}-grafana-dashboard-{{ base $path | trimSuffix ".json" | lower }}
   labels:
-    {{- include "coronarki.labels" . | nindent 4 }}
+    {{- include "coronarki.labels" $currentScope | nindent 4 }}
 data:
-{{ (.Files.Glob "grafana/RKI-1585720948749.json").AsConfig | indent 2 }}
+{{ ($currentScope.Files.Glob $path).AsConfig | indent 2 }}
+{{- end -}}
 {{- end -}}

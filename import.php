@@ -378,8 +378,10 @@ print_r($residents_bl);
 $residents_lk =  import_residents_lk_rki($database)  + import_residents_lk($database);
 print_r($residents_lk);
 
-import_divi($database);
-import($database, true);
+if (in_array('-init', $argv)) {
+    import_divi($database);
+    import($database, true);
+}
 if ($argv[1] == 'daemon') {
     while (true) {
         sleep(3600 * 6);

@@ -30,7 +30,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: INFLUXDB_HOST
-            value: {{ ternary (printf "%s-influxdb" .Release.Namespace) .Values.influxdb.service.name .Values.influxdb.enabled | quote}}
+            value: {{ ternary (print .Release.Name "-influxdb") .Values.influxdb.service.name .Values.influxdb.enabled | quote}}
           - name: INFLUXDB_PORT
             value: {{ .Values.influxdb.service.port | quote}}
           - name: INFLUXDB_DATABASE
