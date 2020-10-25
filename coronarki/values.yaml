@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: localhost:32000/coronarki
+  repository: tanheyer/coronarki:latest
   pullPolicy: Always
 
 imagePullSecrets: []
