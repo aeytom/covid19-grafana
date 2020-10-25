@@ -49,7 +49,11 @@ RUN apt-get update \
 
 WORKDIR /app
 COPY --chown=${USERNAME} composer* /app/
-RUN ./composer update --no-progress
+RUN \
+    curl -s -o composer https://getcomposer.org/download/2.0.1/composer.phar && \
+    test "4b4b118cc54662e4813ba86efb215fdb19c5b29944c5919b4f2803c915aa2234" = "$(sha256sum composer | cut -f 1 -d ' ')" && \
+    chmod +x ./composer && \
+    ./composer update --no-progress
 
 COPY --chown=${USERNAME} . /app/
 RUN mkdir -p data \
