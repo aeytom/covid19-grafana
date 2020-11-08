@@ -16,13 +16,18 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 11,
-  "iteration": 1603540699786,
+  "iteration": 1604824950882,
   "links": [],
   "panels": [
     {
       "content": "\n<p>Daten: \n<a target=\"_blank\" href=\"https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0\">NPGEO Corona- RKI COVID19</a>,\n<a target=\"_blank\" href=\"https://www.intensivregister.de/#/index\">DIVI Intensivregister</a>\nCode: <a target=\"_blank\" href=\"https://github.com/aeytom/covid19-grafana\">aeytom/covid19-grafana</a></p>\n\n\n\n<!-- Matomo -->\n<script type=\"text/javascript\">\n  var _paq = window._paq || [];\n  /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n  // require user consent before processing data\n  _paq.push(['requireConsent']);\n  _paq.push(['rememberConsentGiven']);\n  _paq.push(['trackPageView']);\n  _paq.push(['enableLinkTracking']);\n  _paq.push(['enableHeartBeatTimer']);\n  (function() {\n    var u=\"//piwik.tay-tec.de/\";\n    _paq.push(['setTrackerUrl', u+'matomo.php']);\n    _paq.push(['setSiteId', '2']);\n    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n  })();\n</script>\n<noscript><p><img src=\"//piwik.tay-tec.de/matomo.php?idsite=2&amp;rec=1\" style=\"border:0;\" alt=\"\" /></p></noscript>\n<!-- End Matomo Code -->\n\n",
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 2,
         "w": 24,
@@ -31,6 +36,11 @@
       },
       "id": 20,
       "mode": "html",
+      "options": {
+        "content": "\n<p>Daten: \n<a target=\"_blank\" href=\"https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0\">NPGEO Corona- RKI COVID19</a>,\n<a target=\"_blank\" href=\"https://www.intensivregister.de/#/index\">DIVI Intensivregister</a>\nCode: <a target=\"_blank\" href=\"https://github.com/aeytom/covid19-grafana\">aeytom/covid19-grafana</a></p>\n\n\n\n<!-- Matomo -->\n<script type=\"text/javascript\">\n  var _paq = window._paq || [];\n  /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n  // require user consent before processing data\n  _paq.push(['requireConsent']);\n  _paq.push(['rememberConsentGiven']);\n  _paq.push(['trackPageView']);\n  _paq.push(['enableLinkTracking']);\n  _paq.push(['enableHeartBeatTimer']);\n  (function() {\n    var u=\"//piwik.tay-tec.de/\";\n    _paq.push(['setTrackerUrl', u+'matomo.php']);\n    _paq.push(['setSiteId', '2']);\n    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n  })();\n</script>\n<noscript><p><img src=\"//piwik.tay-tec.de/matomo.php?idsite=2&amp;rec=1\" style=\"border:0;\" alt=\"\" /></p></noscript>\n<!-- End Matomo Code -->\n\n",
+        "mode": "html"
+      },
+      "pluginVersion": "7.1.0",
       "timeFrom": null,
       "timeShift": null,
       "title": "Covid-19 Zeitreihe Deutschland",
@@ -43,6 +53,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -67,9 +84,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -179,6 +197,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -203,9 +228,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -313,6 +339,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -337,9 +370,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -453,6 +487,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -477,9 +518,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -595,6 +637,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -619,9 +668,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -734,6 +784,12 @@
     {
       "content": "<iframe\n        style=\"border: 0; height: 200px; width: 100%\"\n        src=\"https://piwik.tay-tec.de/index.php?module=CoreAdminHome&action=optOut&backgroundColor=222&fontColor=ddd&fontSize=11pt&fontFamily=arial,sans-serif\"\n        ></iframe>",
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -742,6 +798,11 @@
       },
       "id": 22,
       "mode": "html",
+      "options": {
+        "content": "<iframe\n        style=\"border: 0; height: 200px; width: 100%\"\n        src=\"https://piwik.tay-tec.de/index.php?module=CoreAdminHome&action=optOut&backgroundColor=222&fontColor=ddd&fontSize=11pt&fontFamily=arial,sans-serif\"\n        ></iframe>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.1.0",
       "timeFrom": null,
       "timeShift": null,
       "title": "Matomo Opt-Out",
@@ -750,7 +811,7 @@
     }
   ],
   "refresh": "2h",
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -815,7 +876,6 @@
         "definition": "show tag values on corona from rkiregio with key = \"BL\"",
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Bundesland",
         "multi": false,
         "name": "bundesland",
@@ -842,7 +902,6 @@
         "definition": "show tag values on corona from rkiregio with key = \"name\"",
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Landkreis",
         "multi": false,
         "name": "landkreis",
@@ -861,7 +920,7 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
@@ -875,8 +934,5 @@
   "timezone": "",
   "title": "Corona RKI  Cases",
   "uid": "wqrGytpMk",
-  "variables": {
-    "list": []
-  },
-  "version": 15
+  "version": 1
 }
