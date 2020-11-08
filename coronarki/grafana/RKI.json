@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1603631045820,
+  "iteration": 1604825458393,
   "links": [],
   "panels": [
     {
@@ -125,7 +125,7 @@
             }
           ],
           "hide": false,
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
@@ -306,7 +306,7 @@
           ],
           "hide": false,
           "limit": "",
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") *0.02653223666 FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" = 'Berlin') AND $timeFilter GROUP BY time(7d) fill(null)",
@@ -491,7 +491,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/ AND \"Landkreis\" =~ /^$landkreis$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
@@ -560,7 +560,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/ AND \"Landkreis\" =~ /^$landkreis$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
@@ -734,7 +734,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
@@ -803,7 +803,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT sum(\"value\") FROM \"rki\" WHERE (\"Geschlecht\" =~ /^$geschlecht$/ AND \"Altersgruppe\" =~ /^$altersgruppe$/ AND \"Bundesland\" =~ /^$bundesland$/) AND $timeFilter GROUP BY time(1d), \"Bundesland\" fill(null)",
@@ -1363,7 +1363,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1478,7 +1478,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1583,7 +1583,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1686,7 +1686,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1789,7 +1789,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1892,7 +1892,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "rki",
+          "measurement": "$source",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2150,6 +2150,34 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "rki",
+          "value": "rki"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Quelle Melde-/Refdatum",
+        "multi": false,
+        "name": "source",
+        "options": [
+          {
+            "selected": true,
+            "text": "rki",
+            "value": "rki"
+          },
+          {
+            "selected": false,
+            "text": "rkiref",
+            "value": "rkiref"
+          }
+        ],
+        "query": "rki,rkiref",
+        "skipUrlSync": false,
+        "type": "custom"
       }
     ]
   },
@@ -2168,5 +2196,5 @@
   "timezone": "",
   "title": "Corona RKI",
   "uid": "ryhJ18rWk",
-  "version": 1
+  "version": 2
 }
