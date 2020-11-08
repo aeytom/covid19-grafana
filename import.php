@@ -35,6 +35,7 @@ $blDiviMap = [
  */
 function import_residents_bl(Database $database)
 {
+    set_time_limit(10);
     $url = 'https://services2.arcgis.com/jUpNdisbWqRpMo35/arcgis/rest/services/Bundesl%C3%A4nder_2018_mit_Einwohnerzahl/FeatureServer/2/query?where=1%3D1&outFields=OBJECTID,LAN_ew_EWZ,LAN_ew_GEN&outSR=4326&f=json';
     $jdata = queryJson($url);
 
@@ -65,6 +66,7 @@ function import_residents_bl(Database $database)
         die('Error writing to influxdb!');
     }
 
+    set_time_limit(0);
     return $residents;
 }
 
@@ -81,6 +83,7 @@ function import_residents_lk(Database $database): array
     $resultOffset = 0;
     $url = 'https://services2.arcgis.com/jUpNdisbWqRpMo35/arcgis/rest/services/Kreisgrenzen_2018_mit_Einwohnerzahl/FeatureServer/1/query';
     do {
+        set_time_limit(10);
         $jdata = queryJson($url . '?' . http_build_query([
             'where' => '1=1',
             'outFields' => '*',
@@ -114,7 +117,7 @@ function import_residents_lk(Database $database): array
         }
         $resultOffset += count($jdata['features']);
     } while (true === $jdata['exceededTransferLimit'] || count($jdata['features']) >= $recordCount);
-
+    set_time_limit(0);
     return $residents;
 }
 
@@ -131,6 +134,7 @@ function import_residents_lk_rki(Database $database): array
     $resultOffset = 0;
     $url = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query';
     do {
+        set_time_limit(10);
         $jdata = queryJson($url . '?' . http_build_query([
             'where' => '1=1',
             'outFields' => '*',
@@ -171,7 +175,7 @@ function import_residents_lk_rki(Database $database): array
         }
         $resultOffset += count($jdata['features']);
     } while (true === $jdata['exceededTransferLimit'] || count($jdata['features']) >= $recordCount);
-
+    set_time_limit(0);
     return $residents;
 }
 
@@ -185,6 +189,7 @@ function import(Database $database, bool $fullimport)
 
     $offset = 0;
     do {
+        set_time_limit(30);
         printf("Import start %s - %d offset %d … ", date(DATE_RSS), RecordCount, $offset);
         $url = 'https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_COVID19/FeatureServer/0/query?' .
             http_build_query([
@@ -282,6 +287,7 @@ function import(Database $database, bool $fullimport)
         sleep(1);
     } while (true === $jdata['exceededTransferLimit'] || count($jdata['features']) >= RecordCount);
 
+    set_time_limit(0);
     echo "done.\n";
 }
 
@@ -354,6 +360,7 @@ function queryJson($url): array
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'User-Agent: https://graf.tay-tec.de/?orgId=3',
         'Accept: application/json'
